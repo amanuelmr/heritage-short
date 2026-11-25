@@ -1,0 +1,150 @@
+{
+  "title": "Not Cleared",
+  "logline": "A young man obsessed with aviation passes every stage of a sponsored trainee pilot program except the eye exam, and finds he has not stopped looking up.",
+  "audience": "Young Ethiopians who have been told no on a dream, plus my family and my cohort. Watched on a phone, vertical, often with sound low.",
+  "intent": "At the end they should feel that a rejection closes one runway, not the sky.",
+  "language": "en",
+  "models": {
+    "text": "gemini-3.8-flash",
+    "tts": "gemini-3.8-flash-tts",
+    "image": "@cf/black-forest-labs/flux-2-klein-4b",
+    "image_ref": "@cf/black-forest-labs/flux-2-klein-4b",
+    "image_alt": "@cf/black-forest-labs/flux-1-schnell",
+    "video": "Wan-AI/Wan2.2-TI2V-5B",
+    "music": "ACE-Step/ACE-Step-1.5"
+  },
+  "style": {
+    "style_block": "warm hand-painted illustration, soft gouache texture, gentle film grain, golden-hour light, muted ochre and teal palette, subject centred in frame, no text, no letters, no logos",
+    "character": {
+      "id": "hero",
+      "description": "a 25-year-old Ethiopian man, slim, short black hair, a short neat black beard, warm brown skin, wearing a navy blue jacket over a white shirt",
+      "reference_prompt": "character reference sheet, front view and three-quarter view of the same person, neutral plain background",
+      "reference_seed": 1001
+    }
+  },
+  "voice": {
+    "name": "Charon",
+    "style_instruction": "Read this in a calm, warm, unhurried voice, like someone remembering something personal"
+  },
+  "shots": [
+    {
+      "id": "s01", "duration_s": 7, "shot_size": "extreme_wide", "seed": 101, "motion": "wan",
+      "reason": "Establishes Addis at dawn and the dream: a plane drawing a line in the sky.",
+      "image_prompt": "Addis Ababa rooftops at dawn, a tiny figure standing on a flat roof looking up, a distant airliner drawing a long white contrail across a pink and gold sky",
+      "show_character": false,
+      "motion_prompt": "the contrail slowly extends across the sky, camera static, gentle morning haze",
+      "narration": "Every morning, planes drew white lines across the sky over Addis. I used to think they were writing to me.",
+      "kenburns": {"zoom": "in", "pan": "up"},
+      "music_cue": "m1"
+    },
+    {
+      "id": "s02", "duration_s": 8, "shot_size": "close_up", "seed": 102, "motion": "kenburns",
+      "reason": "Shows the obsession was for love, not study: late nights watching planes.",
+      "image_prompt": "close-up of the young man at night, his face lit by the blue glow of a laptop showing an airliner in flight, dark small room",
+      "motion_prompt": "screen light flickers softly on his face, camera slowly pushes in",
+      "narration": "So I chased them. Documentaries at midnight, not to study, just to be near it. Whatever I could find online, I read.",
+      "kenburns": {"zoom": "in", "pan": "none"},
+      "music_cue": "m1"
+    },
+    {
+      "id": "s03", "duration_s": 5, "shot_size": "wide", "seed": 103, "motion": "kenburns",
+      "reason": "One concrete image of devotion, compared to something everyone knows.",
+      "image_prompt": "wide view, the young man sitting on a rooftop edge in late afternoon, watching a distant airliner descending to land",
+      "motion_prompt": "the airliner descends slowly in the distance, camera static",
+      "narration": "I watched landings the way other kids watched football.",
+      "kenburns": {"zoom": "out", "pan": "right"},
+      "music_cue": "m1"
+    },
+    {
+      "id": "s04", "duration_s": 6, "shot_size": "medium", "seed": 104, "motion": "kenburns",
+      "reason": "The door opens: he applies to the sponsored trainee pilot program.",
+      "image_prompt": "medium shot, the young man in a white shirt and tie under his navy jacket, sitting in a bright waiting room holding a folder on his lap, hopeful expression",
+      "motion_prompt": "he takes a slow breath, camera slowly pushes in",
+      "narration": "Then the national airline opened a sponsored trainee pilot program. I applied.",
+      "kenburns": {"zoom": "in", "pan": "none"},
+      "music_cue": "m2"
+    },
+    {
+      "id": "s05", "duration_s": 6, "shot_size": "insert", "seed": 105, "motion": "kenburns",
+      "reason": "Builds momentum: stage after stage, passed.",
+      "image_prompt": "close-up of a desk with an exam paper with no readable writing, a pen, and a rubber stamp pressing down, warm desk lamp light",
+      "show_character": false,
+      "motion_prompt": "the stamp presses down onto the paper, camera static",
+      "narration": "Age. Documents. Written test. Passed. Interview. Passed.",
+      "kenburns": {"zoom": "in", "pan": "left"},
+      "music_cue": "m2"
+    },
+    {
+      "id": "s06", "duration_s": 7, "shot_size": "medium_close_up", "seed": 106, "motion": "wan",
+      "reason": "The high point: he belongs in the cockpit.",
+      "image_prompt": "medium close-up, the young man in a flight simulator cockpit, hands on the controls, face lit by glowing instrument panels, focused and calm",
+      "motion_prompt": "instrument lights flicker on his face, he glances up, camera very slowly pushes in",
+      "narration": "In the simulator, my hands knew what to do before I did. English proficiency. Passed.",
+      "kenburns": {"zoom": "in", "pan": "none"},
+      "music_cue": "m2"
+    },
+    {
+      "id": "s07", "duration_s": 5, "shot_size": "close_up", "seed": 107, "motion": "kenburns",
+      "reason": "Tension: the last test. The music drops away here.",
+      "image_prompt": "close-up of an eye examination room, a blurred eye chart with no readable letters on the wall, a bright examination lamp, cool clinical light",
+      "show_character": false,
+      "motion_prompt": "the lamp light flares softly, camera static",
+      "narration": "One test left. The medical. My eyes.",
+      "kenburns": {"zoom": "in", "pan": "none"},
+      "music_cue": "silence"
+    },
+    {
+      "id": "s08", "duration_s": 6, "shot_size": "extreme_close_up", "seed": 108, "motion": "kenburns",
+      "reason": "The twist, carried by one image: the plane reflected in the eye that failed.",
+      "image_prompt": "extreme close-up of the young man's brown eye, a tiny airliner reflected in the iris, a single tear forming",
+      "motion_prompt": "the eye blinks slowly, camera static",
+      "narration": "Not cleared. Two words, and the sky closed.",
+      "kenburns": {"zoom": "in", "pan": "none"},
+      "music_cue": "silence"
+    },
+    {
+      "id": "s09", "duration_s": 5, "shot_size": "wide", "seed": 109, "motion": "kenburns",
+      "reason": "Grief, given space before the turn.",
+      "image_prompt": "wide night view, the young man sitting on the same Addis rooftop with his head down, blinking aircraft lights crossing a dark blue sky above him, cool moonlight",
+      "motion_prompt": "aircraft lights move slowly across the sky, camera static",
+      "narration": "For weeks, I couldn't look up.",
+      "kenburns": {"zoom": "out", "pan": "none"},
+      "music_cue": "m3"
+    },
+    {
+      "id": "s10", "duration_s": 9, "shot_size": "medium", "seed": 110, "motion": "kenburns",
+      "reason": "The turn: curiosity outlived the rejection, and this film is the proof.",
+      "image_prompt": "medium shot, the young man at a desk at night, laptop screen showing painted frames of airplanes and rooftops, a small smile returning, warm lamp light",
+      "motion_prompt": "he leans toward the screen, camera slowly pushes in",
+      "narration": "But the sky never asked for my eyes. It asked for my curiosity. So I kept learning, and I built this.",
+      "kenburns": {"zoom": "in", "pan": "right"},
+      "music_cue": "m3"
+    },
+    {
+      "id": "s11", "duration_s": 9, "shot_size": "wide", "seed": 111, "motion": "wan",
+      "reason": "Mirrors the opening shot so the ending lands: same rooftop, same dawn, now standing.",
+      "image_prompt": "wide shot, Addis Ababa rooftops at dawn, the young man standing on a flat roof, head tilted up, following a distant airliner drawing a white contrail across a gold sky",
+      "motion_prompt": "the contrail slowly extends, a light breeze moves his jacket, camera static",
+      "narration": "My eyes failed one test. My curiosity hasn't failed one yet. I'm not done looking up.",
+      "kenburns": {"zoom": "out", "pan": "up"},
+      "music_cue": "m3"
+    }
+  ],
+  "music": {
+    "caption": "instrumental cinematic ambient score, warm analog synth pads, soft felt piano, gentle strings, hopeful and reflective, slow build, airy texture, no vocals",
+    "bpm": 72,
+    "key": "D major",
+    "duration_s": 85,
+    "seeds": [7, 42, 2026],
+    "cues": [
+      {"id": "m1", "from_shot": "s01", "to_shot": "s03", "description": "Soft pads, wonder, almost still"},
+      {"id": "m2", "from_shot": "s04", "to_shot": "s06", "description": "Gentle pulse builds with each 'Passed'"},
+      {"id": "silence", "from_shot": "s07", "to_shot": "s08", "description": "Music drops out; only the voice"},
+      {"id": "m3", "from_shot": "s09", "to_shot": "s11", "description": "The opening theme returns quietly, then lifts"}
+    ]
+  },
+  "end_card": {
+    "text": "Made with AI\nGemini TTS · FLUX · Wan 2.2 · ACE-Step 1.5\nA true story.",
+    "duration_s": 3
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Storyboard",
+  "description": "The contract between every pipeline stage. Each stage reads this file and writes only its own outputs.",
+  "type": "object",
+  "required": ["title", "logline", "audience", "intent", "language", "models", "style", "voice", "shots", "music", "end_card"],
+  "additionalProperties": false,
+  "properties": {
+    "title": {"type": "string", "minLength": 1},
+    "logline": {"type": "string", "minLength": 10},
+    "audience": {"type": "string", "minLength": 10},
+    "intent": {"type": "string", "minLength": 10},
+    "language": {"type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$"},
+    "models": {
+      "type": "object",
+      "required": ["text", "tts", "image"],
+      "additionalProperties": false,
+      "properties": {
+        "text": {"type": "string"},
+        "tts": {"type": "string"},
+        "image": {"type": "string", "description": "Cloudflare Workers AI model id"},
+        "image_ref": {"type": "string", "description": "Optional reference-conditioned image model id"},
+        "image_alt": {"type": "string", "description": "Alternative image model for comparison experiments"},
+        "video": {"type": "string"},
+        "music": {"type": "string"}
+      }
+    },
+    "style": {
+      "type": "object",
+      "required": ["style_block", "character"],
+      "additionalProperties": false,
+      "properties": {
+        "style_block": {"type": "string", "minLength": 10, "description": "Appended to every image prompt"},
+        "character": {
+          "type": "object",
+          "required": ["id", "description"],
+          "additionalProperties": false,
+          "properties": {
+            "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+            "description": {"type": "string", "minLength": 10},
+            "reference_prompt": {"type": "string"},
+            "reference_seed": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string"},
+        "style_instruction": {"type": "string"}
+      }
+    },
+    "shots": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": ["id", "duration_s", "shot_size", "reason", "image_prompt", "motion_prompt", "narration", "seed", "motion"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^s[0-9]{2}$"},
+          "duration_s": {"type": "number", "minimum": 2, "maximum": 15},
+          "shot_size": {"enum": ["extreme_wide", "wide", "medium", "medium_close_up", "close_up", "extreme_close_up", "insert"]},
+          "reason": {"type": "string", "minLength": 5, "description": "Why this shot exists"},
+          "image_prompt": {"type": "string", "minLength": 10},
+          "show_character": {"type": "boolean", "default": true},
+          "motion_prompt": {"type": "string", "description": "Motion and camera only; the keyframe already holds the subject"},
+          "narration": {"type": "string"},
+          "seed": {"type": "integer", "minimum": 0},
+          "motion": {"enum": ["kenburns", "wan"]},
+          "kenburns": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "zoom": {"enum": ["in", "out"]},
+              "pan": {"enum": ["none", "left", "right", "up", "down"]}
+            }
+          },
+          "music_cue": {"type": "string"}
+        }
+      }
+    },
+    "music": {
+      "type": "object",
+      "required": ["caption", "duration_s", "cues"],
+      "additionalProperties": false,
+      "properties": {
+        "caption": {"type": "string"},
+        "bpm": {"type": "integer", "minimum": 40, "maximum": 200},
+        "key": {"type": "string"},
+        "duration_s": {"type": "number", "minimum": 30, "maximum": 120},
+        "seeds": {"type": "array", "items": {"type": "integer"}},
+        "chosen": {"type": "string"},
+        "cues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "from_shot", "to_shot", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string"},
+              "from_shot": {"type": "string"},
+              "to_shot": {"type": "string"},
+              "description": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "end_card": {
+      "type": "object",
+      "required": ["text", "duration_s"],
+      "additionalProperties": false,
+      "properties": {
+        "text": {"type": "string", "pattern": "(?i)\\bAI\\b"},
+        "duration_s": {"type": "number", "minimum": 2, "maximum": 6}
+      }
+    }
+  }
+}
