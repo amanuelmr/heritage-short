@@ -47,9 +47,12 @@ def kenburns_filter(shot, w, h, dur):
     """Crop the square keyframe to the target aspect, upscale 2x for smooth sub-pixel motion, then zoompan."""
     n = round(dur * FPS)
     kb = shot.get("kenburns", {})
-    z = "1.16-0.12*on/{n}" if kb.get("zoom") == "out" else "1.04+0.12*on/{n}"
+    z0, z1 = kb.get("zoom_from", 1.04), kb.get("zoom_to", 1.16)
+    if kb.get("zoom") == "out":
+        z0, z1 = max(z0, z1), min(z0, z1)
+    z = f"{z0}+({z1 - z0})*on/{{n}}"
     px = {"right": "on/{n}", "left": "1-on/{n}"}.get(kb.get("pan"), "0.5")
-    py = {"down": "on/{n}", "up": "1-on/{n}"}.get(kb.get("pan"), "0.5")
+    py = str(kb["anchor_y"]) if "anchor_y" in kb else {"down": "on/{n}", "up": "1-on/{n}"}.get(kb.get("pan"), "0.5")
     crop = "crop='min(iw,ih*{a})':'min(ih,iw/{a})':'(iw-ow)/2':'(ih-oh)*{y}'".format(a=w / h, y=CROP_Y)
     return (f"{crop},scale={w * 2}:{h * 2}:flags=lanczos,"
             f"zoompan=z='{z.format(n=n)}':x='({px.format(n=n)})*(iw-iw/zoom)':y='({py.format(n=n)})*(ih-ih/zoom)'"

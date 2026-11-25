@@ -121,12 +121,15 @@
       "seed": 106,
       "motion": "wan",
       "reason": "The high point: he belongs in the cockpit.",
-      "image_prompt": "one man alone, medium close-up, the young man in a flight simulator cockpit, hands on the controls, face lit by glowing instrument panels, focused and calm",
+      "image_prompt": "one man alone, medium close-up from the chest up, sitting in a flight simulator cockpit, his face lit by glowing instrument panels, focused and calm, looking ahead through the windscreen, hands out of frame below the bottom edge",
       "motion_prompt": "instrument lights flicker on his face, he glances up, camera very slowly pushes in",
       "narration": "In the simulator, my hands knew what to do before I did. English proficiency. Passed.",
       "kenburns": {
         "zoom": "in",
-        "pan": "none"
+        "pan": "none",
+        "anchor_y": 0.1,
+        "zoom_from": 1.3,
+        "zoom_to": 1.42
       },
       "music_cue": "m2"
     },

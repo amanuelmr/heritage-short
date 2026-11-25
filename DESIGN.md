@@ -42,6 +42,7 @@ What I did instead:
 | Story draft | Narration claimed documentaries taught me; program name wrong | Rewrote s02 and s04 |
 | Radio cut | Two different-sounding narrators (the Aura 2 voice drifts in pitch between lines) | One voice for the whole film; take selection by pitch, then a single Gemini take (EXPERIMENTS E6, E7) |
 | Rough cut, 25 Nov evening | Subtitles too large on a phone; the AI label should be visible during the film, not only at the end; the documentaries shot (s02) looks posed, not absorbed; say "Ethiopian Airlines", since it is my true story | Subtitles ~25% smaller and broken at sentence ends; a small "AI-generated" badge on every shot; s02 rewritten as a side view, absorbed at midnight, without the reference image; s04 narration now names Ethiopian Airlines |
+| Scored cut, 25 Nov night | The hands in the simulator shot (s06) look wrong | s06 reframed on the face with no hands in frame (`anchor_y`, zoom range), and its prompt rewritten to keep hands out of frame (FAILURES 14) |
 | Near-final cut | *to fill in* | |
 
 If I had more time, the next step would be to play the radio cut to three people who had a dream turned down, and ask what they felt at the end.

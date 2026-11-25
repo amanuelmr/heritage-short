@@ -60,3 +60,9 @@
 ## 13. ACE-Step on the Hugging Face Space: anonymous ZeroGPU quota
 - **What broke:** while the Kaggle music job was still queued, I called the official `ACE-Step/Ace-Step-v1.5` Space with `gradio_client`. First call: `'float' object cannot be interpreted as an integer` (the API wants integer BPM, duration and batch size). Then `acestep-v15-turbo` returned "Model not fully initialized"; the Space only loads `acestep-v15-xl-turbo`. Then `You have exceeded your ZeroGPU quota (180s requested vs. 179s left)`: anonymous users get under 3 minutes a day and every request reserves 180 s, so no anonymous request can succeed.
 - **Fix:** authenticate with a free Hugging Face token, which raises the daily ZeroGPU quota.
+
+## 14. Malformed hands in the simulator shot (s06)
+- **What broke:** in my review of the scored cut, s06 showed merged, wrong-looking fingers. The keyframe has the hands on the controls at the bottom of the frame, and the default Ken Burns zoom heads for the centre of the frame, so in 9:16 the face was cut off and the hands filled the screen by the end of the shot.
+- **Tried:** `pan: up`. The face came back, but an upward pan starts at the bottom of the frame, so the hands still showed for the first half.
+- **Fix now:** two optional Ken Burns fields in the schema, `anchor_y` (vertical framing) and `zoom_from`/`zoom_to`. s06 uses `anchor_y 0.1`, zoom 1.30 to 1.42, which holds the face and keeps the hands out of frame in both aspect ratios for the whole shot. Only the s06 segment re-rendered (10 cached).
+- **Fix next:** the s06 prompt now asks for a chest-up framing with the hands out of frame, so the keyframe regenerates without hands when the Cloudflare quota resets. This is the brief's advice in practice: check hands on every keyframe, and fix it in the plan (framing, prompt) rather than in the clip.
