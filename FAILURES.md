@@ -15,3 +15,20 @@
 - **Why:** the Workers AI schema for `@cf/black-forest-labs/flux-1-schnell` accepts only `prompt` and `steps`. Without a seed, a schnell image cannot be reproduced, which breaks the "same inputs, same output" rule the cache depends on.
 - **Fix:** made `@cf/black-forest-labs/flux-2-klein-4b` the main image model. It accepts a seed and a reference image, and the smoke call took 8.2 s. schnell is kept as `image_alt` for a comparison experiment only, with the seed dropped from its payload.
 - **Also noticed:** the klein smoke image invented an airline logo on the tail. The style block's "no logos, no letters" is needed, and every keyframe gets a quick check for marks.
+
+## 4. The second Gemini key also returned 402
+- **What broke:** a new key (`AQ.` format) gave `402 prepayment credits are depleted` on every model, from `gemini-2.5-flash` to `gemini-3.8-flash`.
+- **Why:** the new key appears to sit under the same prepaid-billing setup, so the free tier never applies.
+- **Workaround:** moved narration to Deepgram Aura 2 on Cloudflare Workers AI, which uses the token that already works (see E1). `narration.py` picks the provider from the model id (`@cf/...` or `gemini-...`), and Gemini TTS stays as `models.tts_alt`, so switching back is a one-line storyboard change.
+- **Side note:** while debugging I used `curl .../$m:generateContent` in zsh. zsh read `:g` as a history modifier, so every URL was mangled into a 404. Writing `${m}` fixed it.
+
+## 5. Reference sheet duplicated the character, and reference overrode composition
+- See E4 and E5. Two separate failures: two men in every frame, then a front-facing portrait pasted over every wide shot. Fixed with a single-portrait reference and a per-shot `use_reference` flag.
+
+## 6. Content filter false positive on a portrait
+- **What broke:** `400 Your output has been flagged` on the plain portrait prompt, twice, for seed 1001 (no unsafe content in the prompt).
+- **Fix:** the retry with backoff in `common.with_retries` got through on attempt 2 or 3. Logged as errors in `runs.jsonl`.
+
+## 7. s07 generated an unrelated woman and readable text
+- **What broke:** "close-up of an eye examination room" gave a woman's portrait and an eye chart with letter-like text, even though the shot has `show_character: false`.
+- **Fix:** rewrote the prompt as "an empty eye examination room with no people, an eye chart far away ... so out of focus that no letters can be read".
