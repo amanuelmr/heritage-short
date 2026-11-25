@@ -250,7 +250,8 @@
         "to_shot": "s11",
         "description": "The opening theme returns quietly, then lifts"
       }
-    ]
+    ],
+    "backend": "kaggle"
   },
   "end_card": {
     "text": "Made with AI\nA true story.",

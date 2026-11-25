@@ -318,6 +318,13 @@
               }
             }
           }
+        },
+        "backend": {
+          "enum": [
+            "hf_space",
+            "kaggle"
+          ],
+          "description": "hf_space: the official ACE-Step 1.5 Space on ZeroGPU (needs HF_TOKEN); kaggle: our own T4 kernel"
         }
       }
     },

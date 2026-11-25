@@ -9,4 +9,5 @@ dependencies = [
     "python-dotenv>=1.0",
     "pillow>=13.0.0",
     "numpy>=2.4.6",
+    "gradio-client>=2.7.2",
 ]
