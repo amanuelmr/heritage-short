@@ -251,7 +251,8 @@
         "description": "The opening theme returns quietly, then lifts"
       }
     ],
-    "backend": "kaggle"
+    "backend": "kaggle",
+    "chosen": "7"
   },
   "end_card": {
     "text": "Made with AI\nA true story.",

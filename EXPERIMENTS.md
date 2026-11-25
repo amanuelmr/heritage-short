@@ -67,3 +67,9 @@ Format: hypothesis → change (one thing, seed fixed) → result (with numbers f
 - **Change:** `_chunks` in `pipeline/subtitles.py` now packs whole sentences into a card when they fit in two lines and only wraps a sentence that is too long by itself.
 - **Result:** over the 11 narration lines, fixed wrap made 17 cards, **5 ending mid-sentence** and 4 ending on a one-word line. Sentence-aware made 18 cards, **0 ending mid-sentence** and 2 ending on a one-word line (both are the second line of a sentence that ends naturally, e.g. "... the sky / closed.").
 - **Decision:** sentence-aware. One extra card is a small price for subtitles that read as sentences.
+
+## E12. Three score candidates, one choice
+- **Hypothesis:** with ACE-Step, the seed changes the piece more than the caption does, so it is worth generating several and choosing by ear, the way the brief describes a composer's sketchbook.
+- **Change:** one caption ("instrumental cinematic ambient score, warm analog synth pads, soft felt piano, gentle strings, hopeful and reflective, slow build, airy texture, no vocals"), 72 BPM, D major, 85 s, three seeds (7, 42, 2026), ACE-Step 1.5 turbo with the LM planner, on a Kaggle T4 (about 67 s of GPU time per candidate, model load excluded).
+- **Result:** the three differ most in dynamics (ffmpeg `ebur128` on the raw tracks): seed 7 at -19.8 LUFS with an 18.3 LU loudness range (quiet start, large build); seed 42 at -15.7 LUFS, 8.3 LU (full throughout); seed 2026 at -18.0 LUFS, 5.7 LU (an even bed). I listened to each under the narration, ducked as in the film (`outputs/music/previews/`).
+- **Decision:** seed 7, my choice by ear. Its wide range suits the film's shape: quiet under the opening, a build through the "Passed" shots, and space for the silence at "Not cleared". After ducking and mastering, the film measures -14.8 LUFS, peak -0.9 dBFS.
