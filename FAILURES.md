@@ -66,3 +66,8 @@
 - **Tried:** `pan: up`. The face came back, but an upward pan starts at the bottom of the frame, so the hands still showed for the first half.
 - **Fix now:** two optional Ken Burns fields in the schema, `anchor_y` (vertical framing) and `zoom_from`/`zoom_to`. s06 uses `anchor_y 0.1`, zoom 1.30 to 1.42, which holds the face and keeps the hands out of frame in both aspect ratios for the whole shot. Only the s06 segment re-rendered (10 cached).
 - **Fix next:** the s06 prompt now asks for a chest-up framing with the hands out of frame, so the keyframe regenerates without hands when the Cloudflare quota resets. This is the brief's advice in practice: check hands on every keyframe, and fix it in the plan (framing, prompt) rather than in the clip.
+
+## 15. The narration split put words on the wrong shots
+- **What broke:** after the s06 line changed, the split flagged s07 and s08 as too fast. Transcribing every clip showed four boundaries off by a phrase (details in E13), so subtitles and voice were out of step on shots 5–10.
+- **Tried:** Gemini as the checker, with all clips in one request. It merged the clips and re-split them by sentence, with and without labels. The text models were also returning 503 under load.
+- **Fix:** local Whisper (mlx-whisper, base.en, about 140 MB) for word timestamps, used both to split and to verify. No quota, about 10 s per take after the first download.

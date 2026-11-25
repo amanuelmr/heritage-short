@@ -11,7 +11,7 @@ import wave
 
 import numpy as np
 
-from common import OUT, load_storyboard, log_call, rel, with_retries, input_hash
+from common import OUT, ROOT, load_storyboard, log_call, rel, with_retries, input_hash
 from providers import cloudflare_tts, gemini_tts
 
 sb = load_storyboard()
@@ -86,6 +86,38 @@ def choose_cuts(runs, shots, n_frames):
     return [int(mids[c]) for c in reversed(picks)]
 
 
+def whisper_cuts(full, shots, sr):
+    """Cut points (in samples) right after each line's last word, from Whisper word timestamps.
+    The script and the transcript are aligned word by word, so a misheard word does not move a cut."""
+    import difflib
+    import platform
+    import re
+    words_file = full.with_suffix(".words.json")
+    if not words_file.exists():
+        if platform.machine() != "arm64":
+            return None  # mlx-whisper needs Apple Silicon; fall back to pause-based cuts
+        subprocess.run(["uv", "run", "--no-project", "--with", "mlx-whisper", "python",
+                        str(ROOT / "pipeline/align_words.py"), str(full), str(words_file)], check=True)
+    heard = json.loads(words_file.read_text())
+    norm = lambda t: re.sub(r"[^a-z0-9']", "", t.lower().replace("past", "passed"))
+    script, line_end = [], []
+    for s in shots:
+        script += [norm(w) for w in s["narration"].split()]
+        line_end.append(len(script) - 1)
+    sm = difflib.SequenceMatcher(None, script, [norm(h["w"]) for h in heard], autojunk=False)
+    to_heard = {}
+    for a, b, size in sm.get_matching_blocks():
+        for i in range(size):
+            to_heard[a + i] = b + i
+    cuts = []
+    for k in line_end[:-1]:
+        j = next((to_heard[i] for i in range(k, -1, -1) if i in to_heard), None)
+        if j is None or j + 1 >= len(heard):
+            return None
+        cuts.append(int((heard[j]["end"] + heard[j + 1]["start"]) / 2 * sr))
+    return cuts
+
+
 def single_take():
     """One request for the whole script, split into one WAV per shot at the N-1 longest pauses."""
     shots = [s for s in sb["shots"] if s["narration"].strip()]
@@ -115,8 +147,13 @@ def single_take():
             if i - start >= 15:                                # at least 150 ms
                 runs.append((i - start, start, i))
             start = None
-    cuts = choose_cuts(runs, shots, len(x) / hop)
-    cuts = [c * hop for c in cuts]
+    # Pause-based cuts misplaced 4 of 10 boundaries on staccato lines (E13), so prefer word timestamps.
+    cuts = whisper_cuts(full, shots, sr)
+    method = "whisper word timestamps"
+    if cuts is None:
+        cuts = [c * hop for c in choose_cuts(runs, shots, len(x) / hop)]
+        method = "pause alignment"
+    print(f"split by {method}")
     bounds = [0, *cuts, len(x)]
     for s, a, b in zip(shots, bounds, bounds[1:]):
         seg = x[a:b]

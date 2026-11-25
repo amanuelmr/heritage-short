@@ -1,80 +1,76 @@
 1
-00:00:00,400 --> 00:00:04,184
+00:00:00,400 --> 00:00:04,215
 Every morning, planes drew white lines
 across the sky over Addis.
 
 2
-00:00:03,984 --> 00:00:06,390
+00:00:04,015 --> 00:00:06,440
 I used to think they were writing to me.
 
 3
-00:00:07,400 --> 00:00:08,602
+00:00:07,400 --> 00:00:08,630
 So I chased them.
 
 4
-00:00:08,402 --> 00:00:12,139
+00:00:08,430 --> 00:00:12,267
 Documentaries at midnight, not to study,
 just to be near it.
 
 5
-00:00:11,939 --> 00:00:14,320
+00:00:12,067 --> 00:00:14,510
 Whatever I could find online, I read.
 
 6
-00:00:15,400 --> 00:00:18,490
+00:00:15,400 --> 00:00:18,060
 I watched landings the way other kids
 watched football.
 
 7
-00:00:20,400 --> 00:00:24,214
+00:00:20,400 --> 00:00:24,439
 Then Ethiopian Airlines opened a
 sponsored trainee pilot program.
 
 8
-00:00:24,014 --> 00:00:24,770
+00:00:24,239 --> 00:00:25,030
 I applied.
 
 9
-00:00:26,400 --> 00:00:31,420
+00:00:26,400 --> 00:00:31,530
 Age. Documents. Written test. Passed.
 Interview. Passed.
 
 10
-00:00:32,400 --> 00:00:37,174
-In the simulator, my hands knew what to
-do before I did. English proficiency.
+00:00:32,400 --> 00:00:36,600
+Simulation test. Passed. English
+proficiency. Passed.
 
 11
-00:00:36,974 --> 00:00:37,590
-Passed.
-
-12
-00:00:39,400 --> 00:00:42,670
+00:00:39,400 --> 00:00:43,000
 One test left. The medical. My eyes.
 
-13
-00:00:44,400 --> 00:00:47,740
+12
+00:00:44,400 --> 00:00:47,910
 Not cleared. Two words, and the sky
 closed.
 
-14
-00:00:50,400 --> 00:00:52,040
+13
+00:00:50,400 --> 00:00:51,850
 For weeks, I couldn't look up.
 
-15
-00:00:55,400 --> 00:00:59,386
+14
+00:00:55,400 --> 00:00:59,380
 But the sky never asked for my eyes. It
 asked for my curiosity.
 
-16
-00:00:59,186 --> 00:01:01,610
+15
+00:00:59,180 --> 00:01:01,600
 So I kept learning, and I built this.
 
-17
-00:01:04,400 --> 00:01:08,036
+16
+00:01:04,400 --> 00:01:08,150
 My eyes failed one test. My curiosity
 hasn't failed one yet.
 
-18
-00:01:07,836 --> 00:01:09,410
+17
+00:01:07,950 --> 00:01:09,570
 I'm not done looking up.

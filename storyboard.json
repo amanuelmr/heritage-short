@@ -59,7 +59,10 @@
       "narration": "So I chased them. Documentaries at midnight, not to study, just to be near it. Whatever I could find online, I read.",
       "kenburns": {
         "zoom": "in",
-        "pan": "none"
+        "pan": "none",
+        "anchor_y": 0.05,
+        "zoom_from": 1.3,
+        "zoom_to": 1.42
       },
       "music_cue": "m1",
       "use_reference": false
@@ -120,10 +123,10 @@
       "shot_size": "medium_close_up",
       "seed": 106,
       "motion": "wan",
-      "reason": "The high point: he belongs in the cockpit.",
+      "reason": "The high point: the last two stages passed, in the same plain rhythm, right before the medical.",
       "image_prompt": "one man alone, medium close-up from the chest up, sitting in a flight simulator cockpit, his face lit by glowing instrument panels, focused and calm, looking ahead through the windscreen, hands out of frame below the bottom edge",
       "motion_prompt": "instrument lights flicker on his face, he glances up, camera very slowly pushes in",
-      "narration": "In the simulator, my hands knew what to do before I did. English proficiency. Passed.",
+      "narration": "Simulation test. Passed. English proficiency. Passed.",
       "kenburns": {
         "zoom": "in",
         "pan": "none",
