@@ -55,3 +55,15 @@ Format: hypothesis → change (one thing, seed fixed) → result (with numbers f
 - **Change:** crop y offset from 0.5 to 0.25 of the spare height (`CROP_Y`); 9:16 is unaffected (it crops the sides).
 - **Result:** in the first 16:9 render, the top of the head was cut off in s02 and s10. With 0.25 the full head is in frame with headroom (checked on frames at 12 s and 62 s).
 - **Decision:** keep 0.25. Composing keyframes square with the subject centred, as the brief suggests, is what lets one image serve both aspect ratios.
+
+## E10. How hard to duck the score under the voice
+- **Hypothesis:** the brief's starting point (`sidechaincompress` threshold 0.02, ratio 6, attack 300 ms, release 1500 ms) ducks enough; a higher threshold would leave more music under the voice.
+- **Change:** only the threshold, at 0.02, 0.05 and 0.1, with the real narration track as the sidechain and a steady pink-noise bed standing in for music, so the measurement shows the ducking and not the music's own dynamics. Music level measured under speech and in the pauses after the release (`experiment: E10-ducking` in `runs.jsonl`).
+- **Result:** ducking depth **15.9 dB** at 0.02, 9.5 dB at 0.05, 4.8 dB at 0.1. The level in pauses is the same in all three (about 50 dB on the same scale), so only the depth under speech changes.
+- **Decision:** keep 0.02. 10–15 dB under speech is the usual target for music under dialogue, and the music still rises in the pauses, which matters at "For weeks, I couldn't look up."
+
+## E11. Fixed-width subtitle wrapping vs sentence-aware cards
+- **Hypothesis:** wrapping every line at 40 characters, two lines per card, splits sentences across cards and leaves stray words; my rough-cut review saw a card ending on "I".
+- **Change:** `_chunks` in `pipeline/subtitles.py` now packs whole sentences into a card when they fit in two lines and only wraps a sentence that is too long by itself.
+- **Result:** over the 11 narration lines, fixed wrap made 17 cards, **5 ending mid-sentence** and 4 ending on a one-word line. Sentence-aware made 18 cards, **0 ending mid-sentence** and 2 ending on a one-word line (both are the second line of a sentence that ends naturally, e.g. "... the sky / closed.").
+- **Decision:** sentence-aware. One extra card is a small price for subtitles that read as sentences.
