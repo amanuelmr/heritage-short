@@ -32,3 +32,9 @@
 ## 7. s07 generated an unrelated woman and readable text
 - **What broke:** "close-up of an eye examination room" gave a woman's portrait and an eye chart with letter-like text, even though the shot has `show_character: false`.
 - **Fix:** rewrote the prompt as "an empty eye examination room with no people, an eye chart far away ... so out of focus that no letters can be read".
+
+## 8. Aura 2 voice drifts between lines, then the Cloudflare daily quota ran out
+- **What broke:** listening to the radio cut, I heard what sounded like two different narrators. Measuring median pitch per line showed Aura 2 `orion` ranging from 101 to 163 Hz with the same speaker setting (experiment `E-voice-stability` in `runs.jsonl`).
+- **Tried:** compared four voices on the same three lines (`outputs/voice_samples/`): pitch spread was Aura 2 orion 27–46 Hz, Aura 2 arcas 15–17 Hz, Aura 1 arcas 3–8 Hz, Gemini Charon 8 Hz. I still preferred the sound of orion.
+- **Fix:** `narration.py` now generates up to `max_takes` takes per line and keeps the one closest to `target_pitch_hz` (135 Hz, the line I liked).
+- **New blocker:** while regenerating, Cloudflare returned `429 you have used up your daily free allocation of 10,000 neurons` after 8 takes. The same allowance pays for keyframes, so the ~50 images and ~40 TTS calls of the day used it up. It resets at 00:00 UTC (03:00 EAT).

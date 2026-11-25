@@ -26,7 +26,10 @@
   "voice": {
     "name": "orion",
     "style_instruction": "Read this in a calm, warm, unhurried voice, like someone remembering something personal",
-    "tempo": 1.0
+    "tempo": 1.0,
+    "target_pitch_hz": 135,
+    "pitch_tolerance_hz": 8,
+    "max_takes": 5
   },
   "shots": [
     {

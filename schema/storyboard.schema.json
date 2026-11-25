@@ -134,6 +134,22 @@
           "minimum": 0.7,
           "maximum": 1.2,
           "description": "Playback speed applied with ffmpeg atempo (1.0 = unchanged)"
+        },
+        "target_pitch_hz": {
+          "type": "number",
+          "minimum": 60,
+          "maximum": 300,
+          "description": "Keep the take whose median pitch is closest to this; stops the voice drifting between lines"
+        },
+        "pitch_tolerance_hz": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "max_takes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
         }
       }
     },

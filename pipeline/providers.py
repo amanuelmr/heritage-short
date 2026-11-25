@@ -50,6 +50,8 @@ def gemini_tts(model: str, text: str, voice: str, style: str | None = None) -> b
     check_http(r)
     part = r.json()["candidates"][0]["content"]["parts"][0]["inlineData"]
     pcm = base64.b64decode(part["data"])
+    if pcm[:4] == b"RIFF":  # gemini-3.8-flash-tts already returns a WAV file
+        return pcm
     rate = 24000
     mime = part.get("mimeType", "")
     if "rate=" in mime:

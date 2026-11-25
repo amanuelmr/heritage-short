@@ -8,4 +8,5 @@ dependencies = [
     "jsonschema>=4.23",
     "python-dotenv>=1.0",
     "pillow>=13.0.0",
+    "numpy>=2.4.6",
 ]
