@@ -7,7 +7,7 @@ The film is about me. I am the only real person whose story is told.
   and to the narration text in `storyboard.json`, which I wrote and approved.
 - **Voice:** the narration uses a stock Gemini TTS voice (`voice.name` in `storyboard.json`), not a clone of any real person's voice.
 - **Other people:** no other real person is shown, named or voiced. The examiner and doctor are not depicted.
-- **Airline:** referred to only as "the national airline"; no logos, livery or brand marks are generated.
+- **Airline:** Ethiopian Airlines is named in the narration as a factual part of my own story. No logos, livery or brand marks are generated, and the film makes no claim on the airline's behalf.
 
 Signed: Amanuel Mandefrow  Date: 25 Nov 2026
 

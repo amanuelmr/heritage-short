@@ -53,15 +53,16 @@
       "shot_size": "close_up",
       "seed": 102,
       "motion": "kenburns",
-      "reason": "Shows the obsession was for love, not study: late nights watching planes.",
-      "image_prompt": "one man alone, close-up of the young man at night, his face lit by the blue glow of a laptop showing an airliner in flight, dark small room",
+      "reason": "Shows the obsession was for love, not study: absorbed in a documentary at midnight, not posing for the camera.",
+      "image_prompt": "one man alone, seen from the side in profile, sitting on the floor of a small dark bedroom at midnight with his back against the bed, a laptop on his knees playing a documentary of an airliner taking off, the cool blue screen glow lighting his face, absorbed and quietly smiling, a paper model airplane on the shelf behind him",
       "motion_prompt": "screen light flickers softly on his face, camera slowly pushes in",
       "narration": "So I chased them. Documentaries at midnight, not to study, just to be near it. Whatever I could find online, I read.",
       "kenburns": {
         "zoom": "in",
         "pan": "none"
       },
-      "music_cue": "m1"
+      "music_cue": "m1",
+      "use_reference": false
     },
     {
       "id": "s03",
@@ -89,7 +90,7 @@
       "reason": "The door opens: he applies to the sponsored trainee pilot program.",
       "image_prompt": "one man alone, medium shot, the young man in a white shirt and tie under his navy jacket, sitting in a bright waiting room holding a folder on his lap, hopeful expression",
       "motion_prompt": "he takes a slow breath, camera slowly pushes in",
-      "narration": "Then the national airline opened a sponsored trainee pilot program. I applied.",
+      "narration": "Then Ethiopian Airlines opened a sponsored trainee pilot program. I applied.",
       "kenburns": {
         "zoom": "in",
         "pan": "none"
