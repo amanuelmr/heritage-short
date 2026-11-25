@@ -38,3 +38,7 @@
 - **Tried:** compared four voices on the same three lines (`outputs/voice_samples/`): pitch spread was Aura 2 orion 27–46 Hz, Aura 2 arcas 15–17 Hz, Aura 1 arcas 3–8 Hz, Gemini Charon 8 Hz. I still preferred the sound of orion.
 - **Fix:** `narration.py` now generates up to `max_takes` takes per line and keeps the one closest to `target_pitch_hz` (135 Hz, the line I liked).
 - **New blocker:** while regenerating, Cloudflare returned `429 you have used up your daily free allocation of 10,000 neurons` after 8 takes. The same allowance pays for keyframes, so the ~50 images and ~40 TTS calls of the day used it up. It resets at 00:00 UTC (03:00 EAT).
+
+## 9. Gemini TTS read the style instruction aloud, then hit a 10-per-day limit
+- **What broke:** with `"<style>:\n<text>"` as the prompt, `gemini-3.8-flash-tts` spoke the instruction itself, adding about 9 s to every line (6 words took 9.7 s). Moving the style to `systemInstruction` returned `400 Developer instruction is not enabled for this model` on the lite model. Then `429 Generate content requests per day limit exceeded on Free Tier ... quotaValue 10`, per model per project, retry in about 17 h.
+- **Fix:** no style text for Gemini (Charon sounds calm without it), and one request for the whole script on `gemini-3.8-flash-lite-tts`, which has its own quota (see E7).

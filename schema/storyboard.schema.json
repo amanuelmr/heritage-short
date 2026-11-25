@@ -150,6 +150,10 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 8
+        },
+        "single_take": {
+          "type": "boolean",
+          "description": "Narrate all lines in one request and split at the longest pauses (one consistent take, one quota unit)"
         }
       }
     },

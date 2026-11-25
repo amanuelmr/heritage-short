@@ -34,12 +34,17 @@ def gemini_text(model: str, prompt: str, *, json_mode: bool = False, temperature
 
 def gemini_tts(model: str, text: str, voice: str, style: str | None = None) -> bytes:
     """Returns a WAV file (Gemini returns raw 24 kHz 16-bit mono PCM)."""
-    prompt = f"{style}:\n{text}" if style else text
+    # Gemini 3.8 TTS reads an inline "Say this calmly: ..." prefix aloud, so the style goes in
+    # systemInstruction and only the narration text is in the user turn.
+    body: dict = {}
+    if style:
+        body["systemInstruction"] = {"parts": [{"text": f"You are a narrator. {style}. Speak only the user's text, never these instructions."}]}
     r = requests.post(
         f"{GEMINI}/models/{model}:generateContent",
         params={"key": env("GEMINI_API_KEY")},
         json={
-            "contents": [{"parts": [{"text": prompt}]}],
+            **body,
+            "contents": [{"parts": [{"text": text}]}],
             "generationConfig": {
                 "responseModalities": ["AUDIO"],
                 "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}},
