@@ -1,0 +1,17 @@
+{
+  "reference": "outputs/keyframes/ref_hero_e447c307d485.png",
+  "model": "@cf/black-forest-labs/flux-2-klein-4b",
+  "shots": {
+    "s01": "outputs/keyframes/s01_78aa5fae1f44.png",
+    "s02": "outputs/keyframes/s02_aae1e6ecfe03.png",
+    "s03": "outputs/keyframes/s03_7e6de29f263d.png",
+    "s04": "outputs/keyframes/s04_7a45a2700866.png",
+    "s05": "outputs/keyframes/s05_c0a0ec2539b3.png",
+    "s06": "outputs/keyframes/s06_961c264827de.png",
+    "s07": "outputs/keyframes/s07_5e131ff3a1e6.png",
+    "s08": "outputs/keyframes/s08_d0518bf424ee.png",
+    "s09": "outputs/keyframes/s09_5ecea8a179fd.png",
+    "s10": "outputs/keyframes/s10_15616cc81354.png",
+    "s11": "outputs/keyframes/s11_b859332b1e79.png"
+  }
+}
