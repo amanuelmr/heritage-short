@@ -81,3 +81,9 @@ Format: hypothesis → change (one thing, seed fixed) → result (with numbers f
 - **Change 2:** `narration.py` now cuts with Whisper word timestamps on the full take: the script is aligned to the transcript word by word (difflib, "past" read as "passed"), and each cut goes midway between a line's last word and the next word. Pause alignment stays as the fallback off Apple Silicon.
 - **Result 2:** **10 of 11 clips match their line exactly** (ratio 1.00). The 11th (s09, 1.25 s) was heard as "I can look up" in isolation; the same words in the full take were transcribed as "I couldn't look up", so this is a short-clip ASR error, flagged for a human listen.
 - **Decision:** cut by word timestamps. Lesson: a timing heuristic (words per second) is not a correctness check; the check has to look at what was said.
+
+## E14. Where Wan motion is worth its GPU time
+- **Hypothesis:** image-to-video adds most where the story is in the motion (a plane drawing its line), and least in portraits, where the face just has to stay still and the same.
+- **Change:** Wan 2.2 TI2V-5B on three keyframes (s01 rooftop dawn, s06 simulator, s11 rooftop dawn again), same keyframes and seeds as the stills, 640x640, 49 frames, 30 steps, fp16 on a T4.
+- **Result:** all three clips kept the face and the painted style with no visible morphing or flicker (checked at 5%, 50% and 95% of each clip). s01 and s11: the plane moves along its contrail and the figure sways slightly, which is the motion the shots are about. s06: almost no motion, and Wan animates the whole frame, so the malformed hands could no longer be cropped out as with the Ken Burns framing (FAILURES 14). Each clip took about 504 GPU seconds for 2 s of video.
+- **Decision:** Wan for s01 and s11, Ken Burns for s06 and the rest. The 2 s clips are slowed to at most 1.6x, the last frame is held, and a slow push-in runs over the whole segment so the hold does not freeze.

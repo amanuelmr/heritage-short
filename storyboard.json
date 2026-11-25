@@ -122,7 +122,7 @@
       "duration_s": 7,
       "shot_size": "medium_close_up",
       "seed": 106,
-      "motion": "wan",
+      "motion": "kenburns",
       "reason": "The high point: the last two stages passed, in the same plain rhythm, right before the medical.",
       "image_prompt": "one man alone, medium close-up from the chest up, sitting in a flight simulator cockpit, his face lit by glowing instrument panels, focused and calm, looking ahead through the windscreen, hands out of frame below the bottom edge",
       "motion_prompt": "instrument lights flicker on his face, he glances up, camera very slowly pushes in",

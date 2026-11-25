@@ -20,7 +20,7 @@ from common import OUT, ROOT, load_storyboard, log_call, rel, input_hash
 from subtitles import build_timeline, font, subtitle_overlays, write_srt
 
 FPS, XFADE = 24, 0.5
-SEGMENT_VERSION = 2  # bump when the segment filters change, so cached segments re-render
+SEGMENT_VERSION = 3  # bump when the segment filters change, so cached segments re-render
 CROP_Y = 0.25  # landscape crop of a square keyframe: keep more of the top, where faces are
 SIZES = {"9x16": (1080, 1920), "16x9": (1920, 1080)}
 sb = load_storyboard()
@@ -60,13 +60,17 @@ def kenburns_filter(shot, w, h, dur):
 
 
 def clip_filter(w, h, clip_len, dur):
-    """Crop the Wan clip to the aspect, trim the weak first 0.25 s, slow it at most 1.6x, hold the last frame."""
+    """Crop the Wan clip to the aspect, trim the weak first 0.25 s, slow it at most 1.6x, hold the last frame,
+    and run a slow push-in over the whole segment so the held part keeps moving (the clips are only 2 s)."""
     usable = clip_len - 0.25
     slow = min(1.6, max(1.0, dur / usable))
     hold = max(0.0, dur - usable * slow)
+    n = round(dur * FPS)
     crop = "crop='min(iw,ih*{a})':'min(ih,iw/{a})':'(iw-ow)/2':'(ih-oh)*{y}'".format(a=w / h, y=CROP_Y)
-    return (f"trim=start=0.25,setpts=(PTS-STARTPTS)*{slow:.4f},fps={FPS},{crop},scale={w}:{h}:flags=lanczos,"
-            f"tpad=stop_mode=clone:stop_duration={hold:.3f},trim=duration={dur:.3f},format=yuv420p")
+    return (f"trim=start=0.25,setpts=(PTS-STARTPTS)*{slow:.4f},fps={FPS},{crop},scale={w * 2}:{h * 2}:flags=lanczos,"
+            f"tpad=stop_mode=clone:stop_duration={hold:.3f},"
+            f"zoompan=z='1.0+0.08*on/{n}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s={w}x{h}:fps={FPS},"
+            f"trim=duration={dur:.3f},format=yuv420p")
 
 
 def segment(shot_id, w, h, dur, outdir):
@@ -104,9 +108,13 @@ def credits():
 def end_card(w, h, outdir):
     img = Image.new("RGB", (w, h), (12, 18, 32))
     d = ImageDraw.Draw(img)
-    lines = sb["end_card"]["text"].split("\n") + [credits()]
     base = min(w, h)
-    rows = [(line, font(round(base * (0.085 if i == 0 else 0.032)))) for i, line in enumerate(lines)]
+    small = font(round(base * 0.032))
+    joined = credits()
+    # one credits line if it fits in 90% of the width, otherwise one credit per line (the 9:16 frame)
+    fits = d.textlength(joined, font=small) <= w * 0.9
+    lines = sb["end_card"]["text"].split("\n") + ([joined] if fits else joined.split("  ·  "))
+    rows = [(line, font(round(base * 0.085)) if i == 0 else small) for i, line in enumerate(lines)]
     heights = [d.textbbox((0, 0), t, font=f)[3] for t, f in rows]
     gap = base * 0.035
     y = (h - sum(heights) - gap * (len(rows) - 1)) / 2
@@ -115,7 +123,7 @@ def end_card(w, h, outdir):
         y += lh + gap
     png = outdir / f"endcard_{w}x{h}.png"
     img.save(png)
-    out = outdir / f"endcard_{w}x{h}_{input_hash(sb['end_card'], credits())}.mp4"
+    out = outdir / f"endcard_{w}x{h}_{input_hash(sb['end_card'], credits(), SEGMENT_VERSION, 'endcard-layout-2')}.mp4"
     if not out.exists():
         ffmpeg("-loop", "1", "-i", png, "-t", END, "-r", FPS, "-vf", "format=yuv420p", "-c:v", "libx264", "-crf", "18", out)
     return out

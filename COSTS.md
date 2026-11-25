@@ -21,8 +21,9 @@ with their source. The film was made entirely on free tiers: **$0 spent.**
 | Narration | Gemini 3.8 Flash TTS | 14 | 5.9 s per line | 1.4 min |
 | Narration | Gemini 3.8 Flash-Lite TTS, whole script in one take | 2 | 9.1 s per script | 0.3 min |
 | Assembly | FFmpeg, both aspect ratios | 9 | 32 s per aspect ratio | 5.1 min (local CPU, Apple M4) |
-| Moving shots | Wan 2.2 TI2V-5B, Kaggle T4 | *pending* | | |
-| Music | ACE-Step 1.5 turbo, Kaggle T4 | *pending* | | |
+| Moving shots | Wan 2.2 TI2V-5B, Kaggle 2x T4, 640x640, 49 frames, 30 steps | 3 ok (+3 OOM in run 1) | **504 s GPU per 2 s clip** | 25.2 min GPU + 4.9 min model load; 88 min wall incl. queue |
+| Music | ACE-Step 1.5 turbo + 1.7B LM planner, Kaggle T4, 85 s instrumental | 3 | **67 s GPU per candidate** | 3.3 min GPU + 1.1 min load; 46 min wall incl. queue |
+| Split check | Whisper base.en, local (mlx-whisper, Apple M4) | 3 runs | about 10 s per take | first run 7.8 min, mostly downloading the env and model |
 
 Wall-clock latency includes network time and, for Cloudflare, occasional cold starts (the first smoke image
 took 8.2 s; later images on the same model ranged from 7.3 s to 15 s).
@@ -36,7 +37,7 @@ per aspect ratio, against about 42 s from scratch.
 |---|---|---|---|
 | Cloudflare Workers AI (keyframes and Aura TTS together) | one full day's allowance, 10,000 neurons | $0.011 per 1,000 neurons (Workers AI paid pricing) | **about $0.11** |
 | Gemini TTS | 16 requests | free tier only; paid price not verified | not counted |
-| Kaggle T4 | *pending* (GPU minutes from `runs.jsonl`, field `gpu_s`) | about $0.35 per T4 GPU-hour on-demand in public clouds (approximate) | *pending* |
+| Kaggle T4 | 34.5 GPU minutes of generation + 6 min of model loads, about 0.7 GPU-hours | about $0.35 per T4 GPU-hour on-demand in public clouds (approximate) | **about $0.25** |
 | Local assembly | 5 min CPU | own machine | $0 |
 
 The binding constraint was never money. It was daily quotas, which shaped the design: take selection by pitch
@@ -47,3 +48,12 @@ EXPERIMENTS E5–E7).
 
 Not run. The frontier image models (Gemini image, "Nano Banana") returned 429 with zero free quota on every
 key we had, and no organisation key was provided.
+
+## What the GPU time bought
+
+Wan 2.2 at draft settings costs about **8.4 GPU minutes per 2 seconds of video** on a T4, and the queue
+added 40+ minutes per job on a weekday evening. A Ken Burns move over a keyframe costs nothing and renders in
+a couple of seconds locally. With 30 GPU hours a week, the whole film at these settings would be roughly
+11 shots x 4 clips x 8.4 min = 6 hours: possible, but not inside one evening's queue. That is why Wan is
+used only for the two rooftop shots where motion carries meaning (the plane drawing its line), and every
+other shot uses a planned Ken Burns move.
