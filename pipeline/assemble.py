@@ -118,6 +118,24 @@ def end_card(w, h, outdir):
     return out
 
 
+def ai_badge(w, h, outdir):
+    """Small 'AI-generated' label shown for the whole film (not only the end card), top-left,
+    inside the safe area that platform buttons do not cover."""
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    f = font(round(min(w, h) * (0.034 if h > w else 0.024)))
+    text = "AI-generated"
+    tw = d.textlength(text, font=f)
+    th = d.textbbox((0, 0), text, font=f)[3]
+    x, y = round(w * 0.05), round(h * (0.08 if h > w else 0.06))
+    pad = th * 0.45
+    d.rounded_rectangle((x - pad, y - pad, x + tw + pad, y + th + pad), radius=pad, fill=(0, 0, 0, 110))
+    d.text((x, y), text, font=f, fill=(255, 255, 255, 215))
+    p = outdir / f"ai_badge_{w}x{h}.png"
+    img.save(p)
+    return p
+
+
 def music_source():
     mf = OUT / "music/manifest.json"
     if mf.exists():
@@ -169,13 +187,16 @@ def build(aspect):
     segs.append(end_card(w, h, segdir))
 
     # picture: cross-dissolve chain, offsets are the storyboard start times
-    inputs = sum([["-i", p] for p in segs], [])
     chain = [f"[{i}:v]settb=AVTB,fps={FPS},setsar=1[v{i}]" for i in range(len(segs))]
     last = "v0"
     for i, t in enumerate(timeline[1:] + [{"start": timeline[-1]["end"]}], start=1):
         chain.append(f"[{last}][v{i}]xfade=transition=fade:duration={XFADE}:offset={t['start']:.3f}[x{i}]")
         last = f"x{i}"
-    chain.append(f"[{last}]fade=t=in:d=0.8,fade=t=out:st={TOTAL - 0.8:.3f}:d=0.8[base]")
+    badge = ai_badge(w, h, segdir)
+    chain.append(f"[{last}]fade=t=in:d=0.8,fade=t=out:st={TOTAL - 0.8:.3f}:d=0.8[faded]")
+    chain.append(f"[faded][{len(segs)}:v]overlay=0:0:enable='lt(t,{timeline[-1]['end']:.3f})'[base]")
+    segs.append(badge)
+    inputs = sum([["-i", p] for p in segs], [])
     n_vid = len(segs)
 
     # subtitles

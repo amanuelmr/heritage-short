@@ -23,9 +23,26 @@ def _ts(x):
 
 
 def _chunks(text, width=40):
-    """Split into subtitle cards of at most two lines of ~40 characters."""
-    lines = textwrap.wrap(text, width)
-    return ["\n".join(lines[i:i + 2]) for i in range(0, len(lines), 2)]
+    """Subtitle cards of at most two lines of ~40 characters, broken at sentence ends where possible,
+    so a card never ends on a stray word like "I"."""
+    import re
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    cards, cur = [], ""
+    for sent in sentences:
+        trial = f"{cur} {sent}".strip()
+        if len(textwrap.wrap(trial, width)) <= 2:
+            cur = trial
+            continue
+        if cur:
+            cards.append(cur)
+        lines = textwrap.wrap(sent, width)
+        while len(lines) > 2:
+            cards.append(" ".join(lines[:2]))
+            lines = lines[2:]
+        cur = " ".join(lines)
+    if cur:
+        cards.append(cur)
+    return ["\n".join(textwrap.wrap(c, width)) for c in cards]
 
 
 def write_srt(timeline, path):
@@ -99,7 +116,7 @@ def subtitle_overlays(timeline, w, h, outdir, first_input):
     """Write subtitle PNGs; return (extra ffmpeg -i args, filter chain from [base] to [subbed])."""
     outdir.mkdir(parents=True, exist_ok=True)
     vertical = h > w
-    size = round(w * (0.05 if vertical else 0.032))
+    size = round(w * (0.038 if vertical else 0.024))  # was 0.05 / 0.032; too large on a phone
     y = 0.72 if vertical else 0.86          # vertical: above the platform UI safe area
     args, chain, last = [], [], "base"
     for i, (text, a, b) in enumerate(cards(timeline)):
