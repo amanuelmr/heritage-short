@@ -1,6 +1,7 @@
 """Stage: keyframes. Reference sheet first, then one image per shot conditioned on the
 style block and character description (and the reference image if the model supports it).
 Cached by hash of (model, prompt, seed, reference)."""
+import hashlib
 import json
 import sys
 
@@ -17,7 +18,7 @@ d.mkdir(parents=True, exist_ok=True)
 
 
 def generate(key, prompt, seed, ref=None):
-    h = input_hash(model, prompt, seed, input_hash(ref) if ref else None)
+    h = input_hash(model, prompt, seed, hashlib.sha256(ref).hexdigest()[:12] if ref else None)
     path = d / f"{key}_{h}.png"
     if path.exists() and key not in only:
         print(f"cache {key}")
@@ -38,6 +39,7 @@ manifest = {"reference": rel(ref_path), "model": model, "shots": {}}
 for shot in sb["shots"]:
     who = f"{char['description']}, " if shot.get("show_character", True) else ""
     prompt = f"{shot['image_prompt']}, {who}{style}"
-    p = generate(shot["id"], prompt, shot["seed"], ref_bytes if shot.get("show_character", True) else None)
+    use = shot.get("show_character", True) and shot.get("use_reference", True)
+    p = generate(shot["id"], prompt, shot["seed"], ref_bytes if use else None)
     manifest["shots"][shot["id"]] = rel(p)
 (d / "manifest.json").write_text(json.dumps(manifest, indent=2))

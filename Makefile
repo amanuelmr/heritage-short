@@ -12,6 +12,6 @@ narration: validate
 radio: narration   ## prototype for user test 1: narration + placeholder pad on black
 	$(PY) pipeline/radio_cut.py
 keyframes: validate
-	$(PY) pipeline/keyframes.py
+	$(PY) pipeline/keyframes.py --ref
 film: radio keyframes   ## whole pipeline (music, shots, assemble added as they land)
 	@echo "film: stages so far complete"

@@ -75,8 +75,18 @@ def cloudflare_image(model: str, prompt: str, *, seed: int, steps: int = 4,
             form["input_image_0"] = ("ref.png", reference_png, "image/png")
         r = requests.post(url, headers=headers, files=form, timeout=180)
     else:
-        r = requests.post(url, headers=headers, json={"prompt": prompt, "steps": steps}  # schnell on Workers AI rejects `seed`, timeout=180)
+        # schnell on Workers AI rejects `seed`, so it cannot be reproduced exactly
+        r = requests.post(url, headers=headers, json={"prompt": prompt, "steps": steps}, timeout=180)
     check_http(r)
     if r.headers.get("content-type", "").startswith("image/"):
         return r.content
     return base64.b64decode(r.json()["result"]["image"])
+
+
+def cloudflare_tts(model: str, text: str, speaker: str) -> bytes:
+    """Deepgram Aura on Workers AI. Returns MP3 bytes. No style instruction; pace is set in post with atempo."""
+    url = f"https://api.cloudflare.com/client/v4/accounts/{env('CLOUDFLARE_ACCOUNT_ID')}/ai/run/{model}"
+    r = requests.post(url, headers={"Authorization": f"Bearer {env('CLOUDFLARE_API_TOKEN')}"},
+                      json={"text": text, "speaker": speaker}, timeout=120)
+    check_http(r)
+    return r.content
