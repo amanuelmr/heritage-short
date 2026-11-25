@@ -1,77 +1,80 @@
 1
-00:00:00,400 --> 00:00:04,750
+00:00:00,400 --> 00:00:04,184
 Every morning, planes drew white lines
-across the sky over Addis. I used to
+across the sky over Addis.
 
 2
-00:00:04,550 --> 00:00:06,410
-think they were writing to me.
+00:00:03,984 --> 00:00:06,390
+I used to think they were writing to me.
 
 3
-00:00:07,400 --> 00:00:12,368
-So I chased them. Documentaries at
-midnight, not to study, just to be near
+00:00:07,400 --> 00:00:08,602
+So I chased them.
 
 4
-00:00:12,168 --> 00:00:15,010
-it. Whatever I could find online, I
-read.
+00:00:08,402 --> 00:00:12,139
+Documentaries at midnight, not to study,
+just to be near it.
 
 5
-00:00:15,810 --> 00:00:18,330
+00:00:11,939 --> 00:00:14,320
+Whatever I could find online, I read.
+
+6
+00:00:15,400 --> 00:00:18,490
 I watched landings the way other kids
 watched football.
 
-6
-00:00:20,810 --> 00:00:25,007
-Then the national airline opened a
-sponsored trainee pilot program. I
-
 7
-00:00:24,807 --> 00:00:25,470
-applied.
+00:00:20,400 --> 00:00:24,214
+Then Ethiopian Airlines opened a
+sponsored trainee pilot program.
 
 8
-00:00:26,810 --> 00:00:32,440
+00:00:24,014 --> 00:00:24,770
+I applied.
+
+9
+00:00:26,400 --> 00:00:31,420
 Age. Documents. Written test. Passed.
 Interview. Passed.
 
-9
-00:00:33,240 --> 00:00:38,564
+10
+00:00:32,400 --> 00:00:37,174
 In the simulator, my hands knew what to
 do before I did. English proficiency.
 
-10
-00:00:38,364 --> 00:00:39,030
+11
+00:00:36,974 --> 00:00:37,590
 Passed.
 
-11
-00:00:40,240 --> 00:00:44,310
+12
+00:00:39,400 --> 00:00:42,670
 One test left. The medical. My eyes.
 
-12
-00:00:45,240 --> 00:00:48,890
+13
+00:00:44,400 --> 00:00:47,740
 Not cleared. Two words, and the sky
 closed.
 
-13
-00:00:51,240 --> 00:00:53,700
+14
+00:00:50,400 --> 00:00:52,040
 For weeks, I couldn't look up.
 
-14
-00:00:56,240 --> 00:01:01,309
-But the sky never asked for my eyes. It
-asked for my curiosity. So I kept
-
 15
-00:01:01,109 --> 00:01:03,110
-learning, and I built this.
+00:00:55,400 --> 00:00:59,386
+But the sky never asked for my eyes. It
+asked for my curiosity.
 
 16
-00:01:05,240 --> 00:01:09,994
-My eyes failed one test. My curiosity
-hasn't failed one yet. I'm not done
+00:00:59,186 --> 00:01:01,610
+So I kept learning, and I built this.
 
 17
-00:01:09,794 --> 00:01:10,680
-looking up.
+00:01:04,400 --> 00:01:08,036
+My eyes failed one test. My curiosity
+hasn't failed one yet.
+
+18
+00:01:07,836 --> 00:01:09,410
+I'm not done looking up.

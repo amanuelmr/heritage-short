@@ -1,68 +1,68 @@
 {
   "s01": {
-    "file": "outputs/narration/s01_acb431a02598.wav",
-    "duration_s": 5.81,
+    "file": "outputs/narration/s01_0b25c961cb1e.wav",
+    "duration_s": 5.79,
     "words": 20,
-    "pitch_hz": 111
+    "pitch_hz": 132
   },
   "s02": {
-    "file": "outputs/narration/s02_acb431a02598.wav",
-    "duration_s": 7.41,
+    "file": "outputs/narration/s02_0b25c961cb1e.wav",
+    "duration_s": 6.72,
     "words": 22,
-    "pitch_hz": 121
+    "pitch_hz": 142
   },
   "s03": {
-    "file": "outputs/narration/s03_acb431a02598.wav",
-    "duration_s": 2.32,
+    "file": "outputs/narration/s03_0b25c961cb1e.wav",
+    "duration_s": 2.89,
     "words": 9,
-    "pitch_hz": 112
+    "pitch_hz": 133
   },
   "s04": {
-    "file": "outputs/narration/s04_acb431a02598.wav",
-    "duration_s": 4.46,
-    "words": 12,
-    "pitch_hz": 106
+    "file": "outputs/narration/s04_0b25c961cb1e.wav",
+    "duration_s": 4.17,
+    "words": 11,
+    "pitch_hz": 128
   },
   "s05": {
-    "file": "outputs/narration/s05_acb431a02598.wav",
-    "duration_s": 5.43,
+    "file": "outputs/narration/s05_0b25c961cb1e.wav",
+    "duration_s": 4.82,
     "words": 7,
-    "pitch_hz": 111
+    "pitch_hz": 131
   },
   "s06": {
-    "file": "outputs/narration/s06_acb431a02598.wav",
-    "duration_s": 5.59,
+    "file": "outputs/narration/s06_0b25c961cb1e.wav",
+    "duration_s": 4.99,
     "words": 15,
-    "pitch_hz": 118
+    "pitch_hz": 143
   },
   "s07": {
-    "file": "outputs/narration/s07_acb431a02598.wav",
-    "duration_s": 3.87,
+    "file": "outputs/narration/s07_0b25c961cb1e.wav",
+    "duration_s": 3.07,
     "words": 7,
-    "pitch_hz": 90
+    "pitch_hz": 87
   },
   "s08": {
-    "file": "outputs/narration/s08_acb431a02598.wav",
-    "duration_s": 3.45,
+    "file": "outputs/narration/s08_0b25c961cb1e.wav",
+    "duration_s": 3.14,
     "words": 8,
-    "pitch_hz": 117
+    "pitch_hz": 96
   },
   "s09": {
-    "file": "outputs/narration/s09_acb431a02598.wav",
-    "duration_s": 2.26,
+    "file": "outputs/narration/s09_0b25c961cb1e.wav",
+    "duration_s": 1.44,
     "words": 6,
-    "pitch_hz": 99
+    "pitch_hz": 119
   },
   "s10": {
-    "file": "outputs/narration/s10_acb431a02598.wav",
-    "duration_s": 6.67,
+    "file": "outputs/narration/s10_0b25c961cb1e.wav",
+    "duration_s": 6.01,
     "words": 21,
-    "pitch_hz": 125
+    "pitch_hz": 147
   },
   "s11": {
-    "file": "outputs/narration/s11_acb431a02598.wav",
-    "duration_s": 5.24,
+    "file": "outputs/narration/s11_0b25c961cb1e.wav",
+    "duration_s": 4.81,
     "words": 16,
-    "pitch_hz": 96
+    "pitch_hz": 158
   }
 }
