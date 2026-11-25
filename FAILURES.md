@@ -42,3 +42,12 @@
 ## 9. Gemini TTS read the style instruction aloud, then hit a 10-per-day limit
 - **What broke:** with `"<style>:\n<text>"` as the prompt, `gemini-3.8-flash-tts` spoke the instruction itself, adding about 9 s to every line (6 words took 9.7 s). Moving the style to `systemInstruction` returned `400 Developer instruction is not enabled for this model` on the lite model. Then `429 Generate content requests per day limit exceeded on Free Tier ... quotaValue 10`, per model per project, retry in about 17 h.
 - **Fix:** no style text for Gemini (Charon sounds calm without it), and one request for the whole script on `gemini-3.8-flash-lite-tts`, which has its own quota (see E7).
+
+## 10. Stale cache after changing the crop
+- **What broke:** after changing the 16:9 crop, the re-render reported "11 cached segments" and the old crops came back.
+- **Why:** the segment cache key hashed the shot inputs (keyframe, duration, Ken Burns settings) but not the filter code. A change in the code was invisible to the cache.
+- **Fix:** added `CROP_Y` and a `SEGMENT_VERSION` constant to the key; bumping the version invalidates every segment. Lesson: a content-addressed cache must hash everything that affects the output, code included.
+
+## 11. Homebrew ffmpeg details that broke the assembly graph
+- `loudnorm` silently resamples to 192 kHz, which then mismatched `sidechaincompress`, so `aresample=48000` follows every `loudnorm`.
+- `xfade` refuses inputs with different timebases (Ken Burns output from `zoompan` vs the end card from `-loop 1`), so every segment gets `settb=AVTB,fps=24,setsar=1` first.

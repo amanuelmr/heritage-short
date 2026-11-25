@@ -43,3 +43,15 @@ Format: hypothesis → change (one thing, seed fixed) → result (with numbers f
 - **Change:** `voice.single_take: true`; the script is sent as 11 paragraphs to `gemini-3.8-flash-lite-tts` and split at pauses.
 - **Result:** 1 request instead of 11; pitch range 90–125 Hz across lines. Splitting at the 10 longest pauses failed (7 of 11 lines got an impossible speaking rate, because the longest pauses were inside staccato lines like "Passed. Interview. Passed."). Choosing pauses near where each line is expected to end (dynamic programming over pauses, expected time from word count) got 9 of 11 right. Counting each sentence break as two words of time got all 11 to plausible rates (1.3–3.9 words/s), with no extra API calls.
 - **Decision:** single take for Gemini. The trade-off: changing one line regenerates the whole take, so for the "change one shot" demo the per-line Aura mode is better.
+
+## E8. One-pass vs two-pass loudness normalisation
+- **Hypothesis:** a single `loudnorm` pass in the filter graph lands close enough to the -14 LUFS platform target.
+- **Change:** (a) single pass `loudnorm=I=-14:TP=-1` on the mix; (b) render a premaster, measure it, then apply the measured values with `linear=true`; (c) as (b) with `alimiter=limit=0.5` on the mix first.
+- **Result (ffmpeg `ebur128`):** (a) -15.7 LUFS; (b) -15.3 LUFS, because linear gain would have pushed the voice peaks past -1 dBTP, so loudnorm fell back; (c) **-14.4 LUFS, peak -0.8 dBFS**, the same for both aspect ratios.
+- **Decision:** (c). Balance the layers, limit the peaks, then set the loudness, the order the brief's tips describe.
+
+## E9. Centre crop vs top-biased crop for 16:9 from square keyframes
+- **Hypothesis:** square keyframes keep faces in the upper half, so a centre crop to 16:9 cuts foreheads.
+- **Change:** crop y offset from 0.5 to 0.25 of the spare height (`CROP_Y`); 9:16 is unaffected (it crops the sides).
+- **Result:** in the first 16:9 render, the top of the head was cut off in s02 and s10. With 0.25 the full head is in frame with headroom (checked on frames at 12 s and 62 s).
+- **Decision:** keep 0.25. Composing keyframes square with the subject centred, as the brief suggests, is what lets one image serve both aspect ratios.
