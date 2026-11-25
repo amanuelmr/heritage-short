@@ -1,5 +1,5 @@
 PY = uv run python
-.PHONY: setup validate smoke narration radio keyframes film clean-cache
+.PHONY: setup validate smoke narration radio keyframes shots music assemble film
 
 setup:        ## install dependencies
 	uv sync
@@ -13,5 +13,11 @@ radio: narration   ## prototype for user test 1: narration + placeholder pad on 
 	$(PY) pipeline/radio_cut.py
 keyframes: validate
 	$(PY) pipeline/keyframes.py --ref
-film: radio keyframes   ## whole pipeline (music, shots, assemble added as they land)
-	@echo "film: stages so far complete"
+shots: keyframes   ## Wan 2.2 on a Kaggle T4, only for shots whose inputs changed
+	$(PY) pipeline/shots.py
+music: validate    ## ACE-Step 1.5 score candidates on a Kaggle T4
+	$(PY) pipeline/music.py
+assemble:          ## both aspect ratios, subtitles, ducking, -14 LUFS, end card
+	$(PY) pipeline/assemble.py
+film: narration keyframes shots music assemble   ## the whole pipeline, end to end
+	@echo "film ready in outputs/final/"

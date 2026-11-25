@@ -339,6 +339,37 @@
           "maximum": 6
         }
       }
+    },
+    "video": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Wan 2.2 settings, drafted low to save the weekly GPU quota",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "multipleOf": 32
+        },
+        "height": {
+          "type": "integer",
+          "multipleOf": 32
+        },
+        "frames": {
+          "type": "integer",
+          "minimum": 17,
+          "maximum": 121
+        },
+        "steps": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 60
+        },
+        "guidance": {
+          "type": "number"
+        },
+        "negative": {
+          "type": "string"
+        }
+      }
     }
   }
 }

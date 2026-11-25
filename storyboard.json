@@ -252,7 +252,15 @@
     ]
   },
   "end_card": {
-    "text": "Made with AI\nGemini TTS · FLUX · Wan 2.2 · ACE-Step 1.5\nA true story.",
+    "text": "Made with AI\nA true story.",
     "duration_s": 3
+  },
+  "video": {
+    "width": 640,
+    "height": 640,
+    "frames": 49,
+    "steps": 30,
+    "guidance": 5.0,
+    "negative": "blurry, distorted face, extra fingers, extra limbs, text, letters, watermark, logo, flicker, morphing, fast motion"
   }
 }
