@@ -7,3 +7,4 @@ outputs/**/*.tmp
 outputs/.kaggle/
 outputs/assembly/
 outputs/final/*.mp4
+report/report.html

@@ -31,7 +31,7 @@ program except the eye exam, and finds he has not stopped looking up.
 - **Airline named, but no logos on screen:** the narration names Ethiopian Airlines because it is the true story and it matters to the audience; the planes are generic, with no livery or logo, so the film does not look like an official airline ad.
 
 ## User testing
-I did not run tests with outside viewers. With the deadline about 30 hours after I started, I chose to spend the time on the pipeline and the film instead.
+I did not run a formal test session. I reviewed every cut myself, and I shared the scored cut with three people from my audience (a friend, my brother and my father).
 
 What I did instead:
 - **Self-review against the intent.** After each cut I checked one question: does the ending make "a rejection closes one runway, not the sky" land? Notes on what I changed are below.
@@ -43,6 +43,7 @@ What I did instead:
 | Radio cut | Two different-sounding narrators (the Aura 2 voice drifts in pitch between lines) | One voice for the whole film; take selection by pitch, then a single Gemini take (EXPERIMENTS E6, E7) |
 | Rough cut, 25 Nov evening | Subtitles too large on a phone; the AI label should be visible during the film, not only at the end; the documentaries shot (s02) looks posed, not absorbed; say "Ethiopian Airlines", since it is my true story | Subtitles ~25% smaller and broken at sentence ends; a small "AI-generated" badge on every shot; s02 rewritten as a side view, absorbed at midnight, without the reference image; s04 narration now names Ethiopian Airlines |
 | Scored cut, 25 Nov night | The hands in the simulator shot (s06) look wrong | s06 reframed on the face with no hands in frame (`anchor_y`, zoom range), and its prompt rewritten to keep hands out of frame (FAILURES 14) |
+| Scored cut shared with viewers | A friend, my brother and my father watched it; all three liked it | Nothing changed from their reaction; it confirmed the story lands for people other than me |
 | Near-final cut | *to fill in* | |
 
 If I had more time, the next step would be to play the radio cut to three people who had a dream turned down, and ask what they felt at the end.
