@@ -51,3 +51,12 @@
 ## 11. Homebrew ffmpeg details that broke the assembly graph
 - `loudnorm` silently resamples to 192 kHz, which then mismatched `sidechaincompress`, so `aresample=48000` follows every `loudnorm`.
 - `xfade` refuses inputs with different timebases (Ken Burns output from `zoompan` vs the end card from `-loop 1`), so every segment gets `settb=AVTB,fps=24,setsar=1` first.
+
+## 12. Kaggle GPU queue, then Wan 2.2 out of memory on a T4
+- **What broke:** both Kaggle jobs sat in `QUEUED` for 46 minutes on a weekday evening. When Wan finally ran, all three clips failed: `CUDA out of memory ... 14.39 GiB is allocated by PyTorch` on the first shot after 15.5 s, and the next two failed in 0.3 s each, because the first error left the memory allocated.
+- **Why:** `enable_model_cpu_offload` still had to fit the 5B transformer (fp16, about 10 GB) on a 15 GB T4 next to activations, and the 5.7B umT5 text encoder is larger than the transformer. Model load alone took 292 s.
+- **Fix (run 2):** Kaggle gives two T4s, so `kaggle/wan/wan.py` encodes every prompt on GPU 1 first, then deletes the text encoder and keeps only the transformer and VAE on GPU 0, with VAE tiling. After any error it runs `gc.collect()` and `torch.cuda.empty_cache()`, so one failure no longer takes down the remaining shots.
+
+## 13. ACE-Step on the Hugging Face Space: anonymous ZeroGPU quota
+- **What broke:** while the Kaggle music job was still queued, I called the official `ACE-Step/Ace-Step-v1.5` Space with `gradio_client`. First call: `'float' object cannot be interpreted as an integer` (the API wants integer BPM, duration and batch size). Then `acestep-v15-turbo` returned "Model not fully initialized"; the Space only loads `acestep-v15-xl-turbo`. Then `You have exceeded your ZeroGPU quota (180s requested vs. 179s left)`: anonymous users get under 3 minutes a day and every request reserves 180 s, so no anonymous request can succeed.
+- **Fix:** authenticate with a free Hugging Face token, which raises the daily ZeroGPU quota.
