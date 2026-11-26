@@ -46,18 +46,7 @@ def _chunks(text, width=40):
 
 
 def write_srt(timeline, path):
-    n, rows = 1, []
-    for t in timeline:
-        if not t["text"]:
-            continue
-        cards = _chunks(t["text"])
-        span = (t["voice_end"] - t["voice_start"]) or 1
-        weights = [len(c) for c in cards]
-        start = t["voice_start"]
-        for c, w in zip(cards, weights):
-            end = start + span * w / sum(weights)
-            rows.append(f"{n}\n{_ts(start)} --> {_ts(end + 0.2)}\n{c}\n")
-            start, n = end, n + 1
+    rows = [f"{n}\n{_ts(a)} --> {_ts(b)}\n{c}\n" for n, (c, a, b) in enumerate(cards(timeline), 1)]
     path.write_text("\n".join(rows))
 
 
@@ -94,6 +83,10 @@ def cards(timeline):
             end = start + span * len(c) / total
             out.append((c, round(start, 2), round(end + 0.2, 2)))
             start = end
+    # the +0.2 s hold must never run into the next card, or two lines show at once
+    for i in range(len(out) - 1):
+        c, a, b = out[i]
+        out[i] = (c, a, min(b, round(out[i + 1][1] - 0.04, 2)))
     return out
 
 

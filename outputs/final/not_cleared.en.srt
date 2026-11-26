@@ -1,23 +1,23 @@
 1
-00:00:00,400 --> 00:00:04,215
+00:00:00,400 --> 00:00:03,980
 Every morning, planes drew white lines
 across the sky over Addis.
 
 2
-00:00:04,015 --> 00:00:06,440
+00:00:04,020 --> 00:00:06,440
 I used to think they were writing to me.
 
 3
-00:00:07,400 --> 00:00:08,630
+00:00:07,400 --> 00:00:08,390
 So I chased them.
 
 4
-00:00:08,430 --> 00:00:12,267
+00:00:08,430 --> 00:00:12,030
 Documentaries at midnight, not to study,
 just to be near it.
 
 5
-00:00:12,067 --> 00:00:14,510
+00:00:12,070 --> 00:00:14,510
 Whatever I could find online, I read.
 
 6
@@ -26,12 +26,12 @@ I watched landings the way other kids
 watched football.
 
 7
-00:00:20,400 --> 00:00:24,439
+00:00:20,400 --> 00:00:24,200
 Then Ethiopian Airlines opened a
 sponsored trainee pilot program.
 
 8
-00:00:24,239 --> 00:00:25,030
+00:00:24,240 --> 00:00:25,030
 I applied.
 
 9
@@ -58,7 +58,7 @@ closed.
 For weeks, I couldn't look up.
 
 14
-00:00:55,400 --> 00:00:59,380
+00:00:55,400 --> 00:00:59,140
 But the sky never asked for my eyes. It
 asked for my curiosity.
 
@@ -67,7 +67,7 @@ asked for my curiosity.
 So I kept learning, and I built this.
 
 16
-00:01:04,400 --> 00:01:08,150
+00:01:04,400 --> 00:01:07,910
 My eyes failed one test. My curiosity
 hasn't failed one yet.
 

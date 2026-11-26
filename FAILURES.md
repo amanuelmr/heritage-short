@@ -71,3 +71,11 @@
 - **What broke:** after the s06 line changed, the split flagged s07 and s08 as too fast. Transcribing every clip showed four boundaries off by a phrase (details in E13), so subtitles and voice were out of step on shots 5–10.
 - **Tried:** Gemini as the checker, with all clips in one request. It merged the clips and re-split them by sentence, with and without labels. The text models were also returning 503 under load.
 - **Fix:** local Whisper (mlx-whisper, base.en, about 140 MB) for word timestamps, used both to split and to verify. No quota, about 10 s per take after the first download.
+
+## 16. The Cloudflare quota did not reset at midnight UTC
+- **What broke:** the plan was to regenerate the s02 and s06 keyframes with their new prompts after the free allowance reset at 00:00 UTC. At 04:43 UTC on 26 Nov the first call still returned `4006 you have used up your daily free allocation`, although no call had been made since the afternoon before. The Hugging Face router (fal-ai, the same FLUX.2 klein model) returned `402 Payment Required` because the free credits on this account were spent.
+- **Decision:** keep the current s02 and s06 keyframes. The framing fix from FAILURES 14 already keeps the hands out of frame for the whole shot in both aspect ratios, which I checked frame by frame. The new prompts stay in the storyboard, so the next `make keyframes` with quota regenerates them.
+
+## 17. Two subtitle cards on screen at once
+- **What broke:** in my frame-by-frame check, at 67.9 s "I'm not done looking up." appeared on top of the previous card. Each card was held 0.2 s after its words, and when two shots' voices are back to back the hold ran into the next card.
+- **Fix:** a card now ends just before the next one starts, and the SRT is written from the same card list as the burned-in subtitles, so the two can never disagree. 17 cues, 0 overlaps; only the overlay pass re-rendered (11 cached segments).
