@@ -40,7 +40,7 @@ Every output is named after a hash of everything that affects it (`common.input_
 
 | Stage | Hash inputs |
 |---|---|
-| narration | model, voice, style, tempo, pitch target, text (single-take mode: the whole script) |
+| narration | model, voice, style, tempo, pitch target, text (single-take mode: the full take is keyed by the whole script, each split clip by its own line, so a changed line is re-voiced alone; E15) |
 | keyframes | model, full prompt (style block and character included), seed, hash of the reference image |
 | shots | video model, hash of the keyframe file, motion prompt, seed, Wan settings |
 | music | model, caption, bpm, key, duration, seed |

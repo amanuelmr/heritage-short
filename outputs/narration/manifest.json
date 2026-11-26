@@ -1,66 +1,66 @@
 {
   "s01": {
-    "file": "outputs/narration/s01_51171eb42d1b.wav",
+    "file": "outputs/narration/s01_7d4ec876adb8.wav",
     "duration_s": 5.84,
     "words": 20,
     "pitch_hz": 96
   },
   "s02": {
-    "file": "outputs/narration/s02_51171eb42d1b.wav",
+    "file": "outputs/narration/s02_573f38f00f8e.wav",
     "duration_s": 6.91,
     "words": 22,
     "pitch_hz": 110
   },
   "s03": {
-    "file": "outputs/narration/s03_51171eb42d1b.wav",
+    "file": "outputs/narration/s03_7a0c05dc7977.wav",
     "duration_s": 2.46,
     "words": 9,
     "pitch_hz": 106
   },
   "s04": {
-    "file": "outputs/narration/s04_51171eb42d1b.wav",
+    "file": "outputs/narration/s04_52c5180d61be.wav",
     "duration_s": 4.43,
     "words": 11,
     "pitch_hz": 102
   },
   "s05": {
-    "file": "outputs/narration/s05_51171eb42d1b.wav",
+    "file": "outputs/narration/s05_a57606eaf19b.wav",
     "duration_s": 4.93,
     "words": 7,
     "pitch_hz": 92
   },
   "s06": {
-    "file": "outputs/narration/s06_51171eb42d1b.wav",
+    "file": "outputs/narration/s06_ff2c5a570a97.wav",
     "duration_s": 4.0,
     "words": 6,
     "pitch_hz": 113
   },
   "s07": {
-    "file": "outputs/narration/s07_51171eb42d1b.wav",
+    "file": "outputs/narration/s07_1717875f51ae.wav",
     "duration_s": 3.4,
     "words": 7,
     "pitch_hz": 95
   },
   "s08": {
-    "file": "outputs/narration/s08_51171eb42d1b.wav",
+    "file": "outputs/narration/s08_c3bf6df40273.wav",
     "duration_s": 3.31,
     "words": 8,
     "pitch_hz": 99
   },
   "s09": {
-    "file": "outputs/narration/s09_51171eb42d1b.wav",
+    "file": "outputs/narration/s09_cc80135e0963.wav",
     "duration_s": 1.25,
     "words": 6,
     "pitch_hz": 91
   },
   "s10": {
-    "file": "outputs/narration/s10_51171eb42d1b.wav",
+    "file": "outputs/narration/s10_035029938990.wav",
     "duration_s": 6.0,
     "words": 21,
     "pitch_hz": 108
   },
   "s11": {
-    "file": "outputs/narration/s11_51171eb42d1b.wav",
+    "file": "outputs/narration/s11_1bf3300d333c.wav",
     "duration_s": 4.97,
     "words": 16,
     "pitch_hz": 92

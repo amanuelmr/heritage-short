@@ -118,17 +118,52 @@ def whisper_cuts(full, shots, sr):
     return cuts
 
 
+def trim_voice(x, sr):
+    """Cut leading and trailing silence, keeping 100 ms around the first and last voiced sample."""
+    voiced = np.nonzero(np.abs(x) > 300)[0]
+    pad = int(0.1 * sr)
+    return x[max(0, voiced[0] - pad): voiced[-1] + pad] if len(voiced) else x
+
+
+def patch_line(s, path, style):
+    """Voice one changed line on its own, so editing one line costs one request, not the whole script."""
+    raw, dt = with_retries(lambda: gemini_tts(model, s["narration"].strip(), voice["name"], style), label=f"tts {s['id']}")
+    tmp = path.with_suffix(".raw.wav")
+    to_wav(raw, tmp)
+    with wave.open(str(tmp)) as w:
+        sr, x = w.getframerate(), np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(float)
+    tmp.unlink()
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
+        w.writeframes(trim_voice(x, sr).astype(np.int16).tobytes())
+    log_call("narration", model, params={"voice": voice["name"], "style": style, "mode": "single_take_patch",
+                                         "chars": len(s["narration"])}, latency_s=dt, shot=s["id"], output=rel(path))
+    print(f"gen   {s['id']} (one line, the other lines stay cached)")
+
+
 def single_take():
-    """One request for the whole script, split into one WAV per shot at the N-1 longest pauses."""
+    """One request for the whole script, split into one WAV per shot at the line boundaries.
+    Each shot's clip is named by a hash of its own line, so after the first take a changed line
+    is voiced on its own (patch_line) and every other clip is reused."""
     shots = [s for s in sb["shots"] if s["narration"].strip()]
     script = "\n\n".join(s["narration"].strip() for s in shots)
     style = None  # 3.8 TTS reads inline style aloud; the lite model rejects systemInstruction
     h = input_hash(model, voice["name"], style, tempo, script)
-    paths = {s["id"]: d / f"{s['id']}_{h}.wav" for s in shots}
-    if all(p.exists() for p in paths.values()) and not only:
-        print("cache single take")
-        return paths
+    paths = {s["id"]: d / f"{s['id']}_{input_hash(model, voice['name'], style, tempo, 'line', s['narration'].strip())}.wav"
+             for s in shots}
     full = d / f"full_{h}.wav"
+    missing = [s for s in shots if not paths[s["id"]].exists() or s["id"] in only]
+    if not missing:
+        for s in shots:
+            print(f"cache {s['id']}")
+        return paths
+    if not full.exists() and len(missing) <= 3:
+        for s in shots:
+            if s in missing:
+                patch_line(s, paths[s["id"]], style)
+            else:
+                print(f"cache {s['id']}")
+        return paths
     if not full.exists():
         raw, dt = with_retries(lambda: gemini_tts(model, script, voice["name"], style), label="tts full")
         to_wav(raw, full)
@@ -156,10 +191,7 @@ def single_take():
     print(f"split by {method}")
     bounds = [0, *cuts, len(x)]
     for s, a, b in zip(shots, bounds, bounds[1:]):
-        seg = x[a:b]
-        voiced = np.nonzero(np.abs(seg) > 300)[0]
-        pad = int(0.1 * sr)
-        seg = seg[max(0, voiced[0] - pad): voiced[-1] + pad] if len(voiced) else seg
+        seg = trim_voice(x[a:b], sr)
         with wave.open(str(paths[s["id"]]), "wb") as w:
             w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
             w.writeframes(seg.astype(np.int16).tobytes())
